@@ -1,16 +1,23 @@
-import React, { useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import "./App.css";
+import CallApi from "./services/ApiCall";
 
 function App() {
   const [data, setData] = useState("");
+  const [error, setError] = useState();
 
   const hadleFormClick = (e) => {
     e.preventDefault();
+    CallApi(setData, setError);
+    console.log(data);
   };
 
   const handleInputChange = (e) => {
     setData(e.target.value);
   };
+  useEffect(() => {
+    CallApi(setData, setError);
+  }, [data]);
 
   return (
     <>
@@ -22,6 +29,8 @@ function App() {
             onChange={handleInputChange}
           />
           <button onClick={hadleFormClick}>Buscar</button>
+
+          <img src={data} alt="" />
         </form>
       </div>
     </>

@@ -1,27 +1,20 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "https://api.unsplash.com/",
+  //baseURL: "https://api.unsplash.com/",
   timeout: 5000,
   headers: { "Accept-Version": "v1" },
 });
 
-const CallApi = () => {
-  let data;
-  instance
-    .get("")
-    .then((response) => {
-      data = response;
-    })
-    .catch((error) => {
-      console.log(error);
-    })
-    .finally();
-
-  if (data) {
-    return data;
+async function CallApi(setData, setError) {
+  try {
+    const response = await instance.get(
+      "https://images.unsplash.com/photo-1461988320302-91bde64fc8e4?ixid=2yJhcHBfaWQiOjEyMDd9&&fm=jpg&w=400&fit=max"
+    );
+    setData(response.config.url);
+  } catch (erro) {
+    setError(erro);
   }
-  return error;
-};
+}
 
 export default CallApi;
